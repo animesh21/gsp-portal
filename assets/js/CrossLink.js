@@ -2,8 +2,29 @@ $(document).ready(function(){
 
     //alert("Tasks: Sorted based on prioprity \n 1. Make this look like GreenSchoolProgramme \n 2.Check if all javascripts are working fine and if not please rectify.\n 3. FeedBack Page No need for backed. \n 4. Checkboxes values are there even if you uncheck them and submit, Please check I could not understand this. \n 5. Ad Primary Questions, I will share the doc. Logic is there is a entry in database with ID primary, if it is Zero then school opted for primary school audit. Changes only in Land and Waste page. Just copy this page and make new view. \n 6. If you have time after this, then in nergy section there is js missing to calculate megajoules.Please make that.");
     //alert("Required files Crosslink.js and validatorr.js. \n Please test every Field out, i won't be working on this from tommorow since I will be traveling. So if you have any quires ping me.");
+    $("#ajax_submit").click(function (event) {
+        event.preventDefault();
+        var user_name = "animesh0721";
+        var password = "abc";
 
-    
+        JQuery.ajax({
+            type: 'POST',
+            url: '<?php echo base_url(); ?>' + 'audith2017/ajax_form_data',
+            dataType: 'json',
+            data: {
+                name: user_name,
+                password: password
+            },
+            success: function (res) {
+                if (res) {
+                    // Show Entered Value
+                    jQuery("div#result").show();
+                    jQuery("div#value").html(res.username);
+                    jQuery("div#value_pwd").html(res.pwd);
+                }
+            }
+        });
+    });
     $("#Q6E1S1").change(function(){
         
         var val = $('#Q6E1S1').val();
@@ -17,10 +38,9 @@ $(document).ready(function(){
                 val = 0;
             else
                 val = placeholder;
-        var x = $("#Q4E1_1").is(":checked")
+        var x = $("#Q4E1_1").is(":checked");
         if(x == true && (val < 1))
         {
-            
             if (confirm("Please Enter Number Greater Than Zero") == true) 
             {
                 $('#Q6E1S1').removeAttr('value');
@@ -1573,7 +1593,6 @@ $("#energy").submit(function( event ) { //Energy Submit
         
         var element3 = document.getElementById(id3).value;
         var element31 = document.getElementById(id3).placeholder;
-               
 
          if(element1 != "" || element11 != "")
          {
@@ -1598,7 +1617,7 @@ $("#energy").submit(function( event ) { //Energy Submit
     var count2 = 0;
     var count3 = 0;
     
-    for(i=1;i<6;i++)
+    for(var i=1;i<6;i++)
     {
         var id1 = "Q2EzS1".replace('z',i);
         var id2 = "Q2EzS2".replace('z',i);
@@ -1804,7 +1823,8 @@ $("#energy").submit(function( event ) { //Energy Submit
 });
 
 $( "#air" ).submit(function( event ) { //Air Submit
-  
+    var data = '<?php echo json_encode($data); ?>';
+    alert('submit clicked.\nData: ' + data);
     var count1 = 0;
     var count2 = 0;
     var count3 = 0;
